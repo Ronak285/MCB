@@ -82,13 +82,13 @@ public class OrderService {
             OrderStatus orderStatus = OrderStatusFactory.createOrderStatus(status);
             orders = orders.stream()
                     .filter(order -> order.getStatus().equals(orderStatus))
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         if (customerName != null) {
             orders = orders.stream()
                     .filter(order -> order.getCustomerName().equalsIgnoreCase(customerName))
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         // Sorting logic

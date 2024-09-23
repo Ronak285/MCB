@@ -19,6 +19,6 @@ public class OrderRequest {
     private Integer quantity;
 
     @NotNull(message = "Price is mandatory")
-    @Min(value = 0, message = "Price must be greater than 0")
+    @Min(value = 1, message = "Price must be greater than 0")
     private Double price;
 }

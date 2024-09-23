@@ -85,7 +85,7 @@ public class OrderController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Order> updateOrder(@PathVariable UUID id,
-                                             @RequestBody OrderUpdateRequest updateRequest) {
+                                             @Valid @RequestBody OrderUpdateRequest updateRequest) {
         Order updatedOrder = orderService.updateOrder(id, updateRequest);
         return ResponseEntity.ok(updatedOrder);
     }
@@ -109,7 +109,7 @@ public class OrderController {
      * @return the order history for the specified customer.
      */
     @Operation(summary = "Get Order History for a Customer", description = "Retrieve the order history for a customer.")
-    @GetMapping("/customer/{customerName}")
+    @GetMapping("/customers/{customerName}/orders")
     public ResponseEntity<List<Order>> getOrderHistory(@PathVariable String customerName) {
         List<Order> orders = orderService.getOrderHistory(customerName);
         return ResponseEntity.ok(orders);
