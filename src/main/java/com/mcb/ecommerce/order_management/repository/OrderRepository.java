@@ -1,11 +1,12 @@
 package com.mcb.ecommerce.order_management.repository;
 
 import com.mcb.ecommerce.order_management.model.Order;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
+@Repository
 public class OrderRepository {
     private final Map<UUID, Order> orders = new HashMap<>();
 

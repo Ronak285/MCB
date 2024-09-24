@@ -2,9 +2,11 @@ package com.mcb.ecommerce.order_management.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +29,7 @@ public class SecurityConfig {
                 .build();
 
         UserDetails user = User.withUsername("user")
-                .password("userpass")
+                .password("user")
                 .roles("USER")
                 .build();
 
@@ -46,9 +48,9 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for simplicity
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll() // Allow public access to Swagger
-                        .requestMatchers("/orders/**").hasAnyRole("ADMIN", "USER") // Allow both roles access to orders
-                        .requestMatchers("/orders").hasRole("ADMIN") // Admin can perform all actions
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Allow public access to Swagger
+                        .requestMatchers(HttpMethod.POST, "/orders").hasRole("ADMIN") // Allow only ADMIN to create orders
+                        .requestMatchers("/orders/**").hasAnyRole("ADMIN", "USER") // Allow both roles access to other order endpoints
                         .anyRequest().authenticated() // Other endpoints need authentication
                 )
                 .httpBasic(httpBasic -> {}); // Enable Basic Authentication without parameters

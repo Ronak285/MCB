@@ -71,8 +71,9 @@ public class OrderService {
 
     /**
      * Retrieves all orders, optionally filtering by status and sorting by creation date.
+     * @param customerName the name of the customer
+     * @param status filter by order status (e.g., Pending, Completed, Cancelled).
      * @param sort specifies the sorting order, "asc" for ascending or "desc" for descending.
-     * @param status filter by order status (e.g., Pending, Completed).
      * @return a list of orders matching the criteria.
      */
     public List<Order> getOrders(String customerName, String status, String sort) {
